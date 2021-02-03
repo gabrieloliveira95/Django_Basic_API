@@ -19,7 +19,7 @@ class Course(Base):
         verbose_name_plural = 'Courses'
 
     def __str__(self):
-        return self.title
+        return f'Course {self.title} has url = {self.url}'
 
 
 class Evaluate(Base):
@@ -39,4 +39,4 @@ class Evaluate(Base):
         unique_together = ['email', 'course']
 
     def __str__(self):
-        return f'{self.name} evaluate course {self.course} with {self.evaluate}'
+        return f'{self.name} evaluate course {self.course} with {self.evaluate}.'
