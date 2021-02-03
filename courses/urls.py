@@ -1,16 +1,16 @@
 from django.urls import path
-from .views import CourseApiView, EvaluateApiView, CourseManageApiView, EvaluateManageApiView
-
+from .views import CourseApiView, EvaluateApiView, CourseApiManage, EvaluateApiManage
 
 urlpatterns = [
-    path('courses/', CourseApiView.as_view(), name='courses'),
-    path('courses/<int:pk>/', CourseManageApiView.as_view(), name='courses'),
-    path('courses/<int:course_pk>/evaluate',
-         EvaluateManageApiView.as_view(), name='courses_evaluate'),
-    path('courses/<int:course_pk>/evaluate/<int:evaluate_pk>',
-         EvaluateApiView.as_view(), name='courses_evaluates'),
+    path('courses/', CourseApiView.as_view(), name='courses_view_all'),
 
-    path('evaluate/', EvaluateApiView.as_view(), name='evaluate'),
+    path('evaluate/', EvaluateApiView.as_view(), name='evaluate_view_all'),
+
+    path('courses/<int:pk>/', CourseApiManage.as_view(), name='courses_by_pk'),
+
     path('evaluate/<int:evaluate_pk>/',
-         EvaluateManageApiView.as_view(), name='evaluates')
+         EvaluateApiManage.as_view(), name='evaluate_pk'),
+
+    path('courses/<int:course_pk>/evaluate',
+         EvaluateApiManage.as_view(), name='evaluate_by_courses_pk')
 ]

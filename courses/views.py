@@ -22,20 +22,21 @@ class EvaluateApiView(generics.ListCreateAPIView):
         return self.queryset.all()
 
 
-# RetrieveUpdateDestroyAPIView - Get / Post/ Put / Delete
+# RetrieveUpdateDestroyAPIView - Get/Put/Patch/Delete
 # Update and Delete needs ID
 
 
-class CourseManageApiView(generics.RetrieveUpdateDestroyAPIView):
+class CourseApiManage(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
 
-class EvaluateManageApiView(generics.RetrieveUpdateDestroyAPIView):
+class EvaluateApiManage(generics.RetrieveUpdateDestroyAPIView):
     queryset = Evaluate.objects.all()
     serializer_class = EvaluateSerializer
 
     def get_object(self):
+        print(self.kwargs)
         if self.kwargs.get('course_pk'):
-            return get_object_or_404(self.get_queryset(), course_id=self.kwargs.get('course_id'), pk=self.kwargs.get('evaluate_pk'))
+            return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('course_pk'))
         return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('evaluate_pk'))
