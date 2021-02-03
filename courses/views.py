@@ -37,6 +37,8 @@ class EvaluateApiManage(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         print(self.kwargs)
-        if self.kwargs.get('course_pk'):
+        if self.kwargs.get('course_pk') and self.kwargs.get('evaluate_pk'):
+            return get_object_or_404(self.get_queryset(), course_id=self.kwargs.get('course_pk'), pk=self.kwargs.get('evaluate_pk'))
+        elif self.kwargs.get('course_pk'):
             return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('course_pk'))
         return get_object_or_404(self.get_queryset(), pk=self.kwargs.get('evaluate_pk'))
